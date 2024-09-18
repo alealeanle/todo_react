@@ -1,17 +1,8 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 import './TodoItem.css';
 
-export default function TodoItem({
-  id,
-  text,
-  completed,
-  input,
-  todos,
-  setTodos,
-  removeTodo,
-  toggleTodoComplete,
-  handleDblClick,
-}) {
+const TodoItem = ({ id, text, completed, input, todos, setTodos }) => {
   const [backupText, setBackupText] = useState(text);
 
   const handleInput = e =>
@@ -55,8 +46,38 @@ export default function TodoItem({
     );
   };
 
+  const toggleTodoComplete = todoId => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id !== todoId) return todo;
+
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }),
+    );
+  };
+
+  const removeTodo = todoId => {
+    setTodos(todos.filter(todo => todo.id !== todoId));
+  };
+
+  const handleDblClick = todoId => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id !== todoId) return todo;
+
+        return {
+          ...todo,
+          input: !todo.input,
+        };
+      }),
+    );
+  };
+
   return (
-    <li key={id} className={`item ${completed ? '_completed' : ''}`}>
+    <li key={id} className={clsx('item', { _completed: completed })}>
       <input
         className="checkbox"
         type="checkbox"
@@ -90,4 +111,6 @@ export default function TodoItem({
       </span>
     </li>
   );
-}
+};
+
+export default TodoItem;

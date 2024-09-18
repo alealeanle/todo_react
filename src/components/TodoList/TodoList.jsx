@@ -2,36 +2,6 @@ import TodoItem from '../TodoItem/TodoItem';
 import './TodoList.css';
 
 export const TodoList = ({ filter, todos, setTodos }) => {
-  const toggleTodoComplete = todoId => {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id !== todoId) return todo;
-
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }),
-    );
-  };
-
-  const removeTodo = todoId => {
-    setTodos(todos.filter(todo => todo.id !== todoId));
-  };
-
-  const handleDblClick = todoId => {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id !== todoId) return todo;
-
-        return {
-          ...todo,
-          input: !todo.input,
-        };
-      }),
-    );
-  };
-
   const getFilteredTodos = () => {
     switch (filter) {
       case 'active':
@@ -43,21 +13,25 @@ export const TodoList = ({ filter, todos, setTodos }) => {
     }
   };
 
+  const filteredTodos = getFilteredTodos();
+
   return (
     <ul className="list">
-      {todos
+      {filteredTodos
         .map(todo => (
           <TodoItem
             key={todo.id}
-            todos={getFilteredTodos}
+            id={todo.id}
+            text={todo.text}
+            completed={todo.completed}
+            input={todo.input}
+            todos={filteredTodos}
             setTodos={setTodos}
-            removeTodo={removeTodo}
-            toggleTodoComplete={toggleTodoComplete}
-            handleDblClick={handleDblClick}
-            {...todo}
           />
         ))
         .reverse()}
     </ul>
   );
 };
+
+export default TodoList;

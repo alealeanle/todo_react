@@ -1,7 +1,7 @@
-import React from 'react';
+import clsx from 'clsx';
 import './InputField.css';
 
-export default function InputField({ todos, text, setTodos, setText }) {
+const InputField = ({ todos, text, setTodos, setText }) => {
   const addTodo = () => {
     if (text) {
       if (text.trim()) {
@@ -45,7 +45,7 @@ export default function InputField({ todos, text, setTodos, setText }) {
     <div>
       {todos.length ? (
         <button
-          className={`all-btn ${allCompleted ? 'completed' : ''}`}
+          className={clsx('all-btn', { completed: allCompleted })}
           onClick={toggleAllTodos}
         >
           ❯
@@ -65,4 +65,6 @@ export default function InputField({ todos, text, setTodos, setText }) {
       />
     </div>
   );
-}
+};
+
+export default InputField;

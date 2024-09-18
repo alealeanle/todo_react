@@ -1,7 +1,7 @@
-import React from 'react';
+import clsx from 'clsx';
 import './TodoFooter.css';
 
-export default function Footer({ todos, filter, setFilter, setTodos }) {
+const TodoFooter = ({ todos, filter, setFilter, setTodos }) => {
   const getActiveTodoCount = () => {
     return todos.filter(todo => !todo.completed).length;
   };
@@ -16,19 +16,25 @@ export default function Footer({ todos, filter, setFilter, setTodos }) {
         <span className="footer__count">{getActiveTodoCount()} items left</span>
         <div className="footer__filters">
           <button
-            className={`footer__filter-btn ${filter === 'all' ? 'active' : ''}`}
+            className={clsx('footer__filter-btn', {
+              active: filter === 'all',
+            })}
             onClick={() => setFilter('all')}
           >
             All
           </button>
           <button
-            className={`footer__filter-btn ${filter === 'active' ? 'active' : ''}`}
+            className={clsx('footer__filter-btn', {
+              active: filter === 'active',
+            })}
             onClick={() => setFilter('active')}
           >
             Active
           </button>
           <button
-            className={`footer__filter-btn ${filter === 'completed' ? 'active' : ''}`}
+            className={clsx('footer__filter-btn', {
+              active: filter === 'completed',
+            })}
             onClick={() => setFilter('completed')}
           >
             Completed
@@ -44,4 +50,6 @@ export default function Footer({ todos, filter, setFilter, setTodos }) {
       )}
     </div>
   );
-}
+};
+
+export default TodoFooter;

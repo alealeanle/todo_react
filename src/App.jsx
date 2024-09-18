@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { TodoList } from './components/TodoList/TodoList';
-import './App.css';
 import InputField from './components/InputField/InputField';
+import TodoList from './components/TodoList/TodoList';
 import TodoFooter from './components/InputFooter/TodoFooter';
+import './App.css';
 
-function App() {
+const App = () => {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState('');
   const [filter, setFilter] = useState('all');
@@ -35,6 +35,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
