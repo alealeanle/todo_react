@@ -1,0 +1,10 @@
+.list {
+  margin-top: 2px;
+  font-size: 24px;
+}
+
+@media (max-width: 480px) {
+  .list {
+    font-size: 18px;
+  }
+}

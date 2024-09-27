@@ -1,13 +1,28 @@
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
-import './TodoFooter.css';
+import { CLEAR_COMPLETED, SET_FILTER } from '@store/todo-actions';
+import './TodoFooter.scss';
 
-const TodoFooter = ({ todos, filter, setFilter, setTodos }) => {
+const TodoFooter = () => {
+  const items = useSelector(state => state.todos.todos);
+  const filter = useSelector(state => state.todos.filter);
+  const dispatch = useDispatch();
+
   const getActiveTodoCount = () => {
-    return todos.filter(todo => !todo.completed).length;
+    return items.filter(todo => !todo.completed).length;
   };
 
   const clearCompleted = () => {
-    setTodos(todos.filter(todo => !todo.completed));
+    dispatch({
+      type: CLEAR_COMPLETED,
+    });
+  };
+
+  const setFilter = filter => {
+    dispatch({
+      type: SET_FILTER,
+      payload: { filter },
+    });
   };
 
   return (
@@ -41,7 +56,7 @@ const TodoFooter = ({ todos, filter, setFilter, setTodos }) => {
           </button>
         </div>
       </div>
-      {todos.some(todo => todo.completed) ? (
+      {items.some(todo => todo.completed) ? (
         <button className="footer__clear" onClick={clearCompleted}>
           Clear completed
         </button>

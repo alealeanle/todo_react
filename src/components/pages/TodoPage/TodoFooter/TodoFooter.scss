@@ -46,17 +46,18 @@
   border-radius: 3px;
   cursor: pointer;
   outline: none;
-}
 
-.footer__filter-btn:not(:last-child) {
-  margin-right: 5px;
-}
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
 
-.footer__filter-btn:hover {
-  border: 1px solid #cf7d7d;
-}
-.footer__filter-btn:focus {
-  box-shadow: 0 0 2px 2px #cf7d7d;
+  &:hover {
+    border: 1px solid #cf7d7d;
+  }
+
+  &:focus {
+    box-shadow: 0 0 2px 2px #cf7d7d;
+  }
 }
 
 .footer__filters .active {
@@ -71,14 +72,14 @@
   border: 1px solid transparent;
   cursor: pointer;
   outline: none;
-}
 
-.footer__clear:hover {
-  text-decoration: underline;
-}
+  &:hover {
+    text-decoration: underline;
+  }
 
-.footer__clear:focus {
-  box-shadow: 0 0 2px 2px #cf7d7d;
+  &:focus {
+    box-shadow: 0 0 2px 2px #cf7d7d;
+  }
 }
 
 @media (max-width: 480px) {

@@ -1,15 +1,19 @@
-import TodoItem from '../TodoItem/TodoItem';
-import './TodoList.css';
+import { useSelector } from 'react-redux';
+import TodoItem from '@TodoPage/TodoItem/TodoItem';
+import './TodoList.scss';
 
-export const TodoList = ({ filter, todos, setTodos }) => {
+export const TodoList = () => {
+  const items = useSelector(state => state.todos.todos);
+  const filter = useSelector(state => state.todos.filter);
+
   const getFilteredTodos = () => {
     switch (filter) {
       case 'active':
-        return todos.filter(todo => !todo.completed);
+        return items.filter(todo => !todo.completed);
       case 'completed':
-        return todos.filter(todo => todo.completed);
+        return items.filter(todo => todo.completed);
       default:
-        return todos;
+        return items;
     }
   };
 
@@ -25,8 +29,6 @@ export const TodoList = ({ filter, todos, setTodos }) => {
             text={todo.text}
             completed={todo.completed}
             input={todo.input}
-            todos={filteredTodos}
-            setTodos={setTodos}
           />
         ))
         .reverse()}
