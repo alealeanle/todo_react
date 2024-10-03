@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { CLEAR_COMPLETED, SET_FILTER } from '@store/todo-actions';
-import './TodoFooter.scss';
+import s from './TodoFooter.module.scss';
 
 const TodoFooter = () => {
   const items = useSelector(state => state.todos.todos);
@@ -26,29 +26,29 @@ const TodoFooter = () => {
   };
 
   return (
-    <div className="footer">
-      <div className="footer__main">
-        <span className="footer__count">{getActiveTodoCount()} items left</span>
-        <div className="footer__filters">
+    <div className={s.footer}>
+      <div className={s.footerMain}>
+        <span className={s.footerCount}>{getActiveTodoCount()} items left</span>
+        <div className={s.footerFilters}>
           <button
-            className={clsx('footer__filter-btn', {
-              active: filter === 'all',
+            className={clsx(s.footerFilterBtn, {
+              [s.active]: filter === 'all',
             })}
             onClick={() => setFilter('all')}
           >
             All
           </button>
           <button
-            className={clsx('footer__filter-btn', {
-              active: filter === 'active',
+            className={clsx(s.footerFilterBtn, {
+              [s.active]: filter === 'active',
             })}
             onClick={() => setFilter('active')}
           >
             Active
           </button>
           <button
-            className={clsx('footer__filter-btn', {
-              active: filter === 'completed',
+            className={clsx(s.footerFilterBtn, {
+              [s.active]: filter === 'completed',
             })}
             onClick={() => setFilter('completed')}
           >
@@ -57,7 +57,7 @@ const TodoFooter = () => {
         </div>
       </div>
       {items.some(todo => todo.completed) ? (
-        <button className="footer__clear" onClick={clearCompleted}>
+        <button className={s.footerClear} onClick={clearCompleted}>
           Clear completed
         </button>
       ) : (

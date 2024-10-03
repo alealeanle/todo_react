@@ -24,7 +24,7 @@
   overflow: hidden;
 }
 
-.footer__main {
+.footerMain {
   z-index: 1;
   display: flex;
   align-items: center;
@@ -32,12 +32,12 @@
   width: 70%;
 }
 
-.footer__count {
+.footerCount {
   margin-right: 5px;
   cursor: default;
 }
 
-.footer__filter-btn {
+.footerFilterBtn {
   margin-right: 5px;
   padding: 5px 7px;
   font-size: 15px;
@@ -60,11 +60,11 @@
   }
 }
 
-.footer__filters .active {
+.footerFilters .active {
   border: 1px solid #ce4646;
 }
 
-.footer__clear {
+.footerClear {
   z-index: 99;
   padding: 2px 1px;
   font-size: 15px;
@@ -82,17 +82,17 @@
   }
 }
 
-@media (max-width: 480px) {
+@include respondToMobile {
   .footer {
     padding: 10px 5px;
     font-size: 12px;
   }
-  .footer__filter-btn {
+  .footerFilterBtn {
     margin-right: 2px;
     padding: 5px 4px;
     font-size: 12px;
   }
-  .footer__clear {
+  .footerClear {
     font-size: 12px;
   }
 }

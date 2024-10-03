@@ -8,7 +8,7 @@ import {
   SAVE_EDIT_ITEM,
   TOGGLE_TODO_COMPLETE,
 } from '@store/todo-actions';
-import './TodoItem.scss';
+import s from './TodoItem.module.scss';
 
 const TodoItem = ({ id, text, completed, input }) => {
   const dispatch = useDispatch();
@@ -60,17 +60,17 @@ const TodoItem = ({ id, text, completed, input }) => {
   };
 
   return (
-    <li key={id} className={clsx('item', { _completed: completed })}>
+    <li key={id} className={clsx(s.item, { [s._completed]: completed })}>
       <input
-        className="checkbox"
+        className={s.checkbox}
         type="checkbox"
         checked={completed}
         onChange={() => toggleTodoComplete(id)}
       />
-      <label className="icon"></label>
+      <label className={s.icon}></label>
       {input ? (
         <input
-          className="input-text"
+          className={s.inputText}
           type="text"
           value={text}
           onKeyDown={e => {
@@ -85,11 +85,11 @@ const TodoItem = ({ id, text, completed, input }) => {
           autoFocus
         />
       ) : (
-        <div className="text" onDoubleClick={() => handleDblClick(id)}>
+        <div className={s.text} onDoubleClick={() => handleDblClick(id)}>
           {text}
         </div>
       )}
-      <span className="delete" onClick={() => removeTodo(id)}>
+      <span className={s.delete} onClick={() => removeTodo(id)}>
         ✖
       </span>
     </li>

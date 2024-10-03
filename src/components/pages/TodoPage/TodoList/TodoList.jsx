@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import TodoItem from '@TodoPage/TodoItem/TodoItem';
-import './TodoList.scss';
+import s from './TodoList.module.scss';
 
 export const TodoList = () => {
   const items = useSelector(state => state.todos.todos);
@@ -20,7 +20,7 @@ export const TodoList = () => {
   const filteredTodos = getFilteredTodos();
 
   return (
-    <ul className="list">
+    <ul className={s.list}>
       {filteredTodos
         .map(todo => (
           <TodoItem

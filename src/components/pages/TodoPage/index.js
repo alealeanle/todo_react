@@ -1,3 +1,1 @@
-import TodoPage from './index';
-
-export default TodoPage;
+export { default } from './TodoPage';

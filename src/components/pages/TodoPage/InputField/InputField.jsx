@@ -5,7 +5,7 @@ import {
   SET_INPUT_TEXT,
   TOGGLE_ALL_TODOS,
 } from '@store/todo-actions';
-import './InputField.scss';
+import s from './InputField.module.scss';
 
 const InputField = () => {
   const items = useSelector(state => state.todos.todos);
@@ -55,7 +55,7 @@ const InputField = () => {
     <div>
       {items.length ? (
         <button
-          className={clsx('all-btn', { completed: allCompleted })}
+          className={clsx(s.allBtn, { [s.completed]: allCompleted })}
           onClick={toggleAllTodos}
         >
           ❯
@@ -65,7 +65,7 @@ const InputField = () => {
       )}
 
       <input
-        className="main-input"
+        className={s.mainInput}
         value={inputText}
         placeholder="What needs to be done?"
         autoFocus
