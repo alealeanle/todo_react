@@ -1,0 +1,23 @@
+@mixin respondToDesktop {
+  @media (max-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin respondToLargeTablet {
+  @media (max-width: $largeTablet) {
+    @content;
+  }
+}
+
+@mixin respondToTablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin respondToMobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}

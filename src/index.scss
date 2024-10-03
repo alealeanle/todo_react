@@ -36,3 +36,6 @@ body {
   color: #111;
   background: #f5f5f5;
 }
+
+@import './styles/breakpoints.scss';
+@import './styles/mixins.scss';
