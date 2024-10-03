@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import TodoItem from '@TodoPage/TodoItem';
+import TodoItem from '@pages/TodoPage/TodoItem';
 import s from './TodoList.module.scss';
 
 export const TodoList = () => {

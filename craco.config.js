@@ -5,7 +5,7 @@ module.exports = {
   webpack: {
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
-      '@TodoPage': path.resolve(__dirname, 'src/components/pages/TodoPage'),
+      '@pages': path.resolve(__dirname, 'src/components/pages'),
       '@store': path.resolve(__dirname, 'src/store'),
     },
   },
