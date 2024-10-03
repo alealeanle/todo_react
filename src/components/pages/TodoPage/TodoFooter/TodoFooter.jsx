@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
-import { CLEAR_COMPLETED, SET_FILTER } from '@store/todo-actions';
+import { clearCompleted, setFilter } from '@models/todoSlice';
 import s from './TodoFooter.module.scss';
 
 const TodoFooter = () => {
@@ -12,17 +12,12 @@ const TodoFooter = () => {
     return items.filter(todo => !todo.completed).length;
   };
 
-  const clearCompleted = () => {
-    dispatch({
-      type: CLEAR_COMPLETED,
-    });
+  const handleClearCompleted = () => {
+    dispatch(clearCompleted());
   };
 
-  const setFilter = filter => {
-    dispatch({
-      type: SET_FILTER,
-      payload: { filter },
-    });
+  const handleSetFilter = filter => {
+    dispatch(setFilter(filter));
   };
 
   return (
@@ -34,7 +29,7 @@ const TodoFooter = () => {
             className={clsx(s.footerFilterBtn, {
               [s.active]: filter === 'all',
             })}
-            onClick={() => setFilter('all')}
+            onClick={() => handleSetFilter('all')}
           >
             All
           </button>
@@ -42,7 +37,7 @@ const TodoFooter = () => {
             className={clsx(s.footerFilterBtn, {
               [s.active]: filter === 'active',
             })}
-            onClick={() => setFilter('active')}
+            onClick={() => handleSetFilter('active')}
           >
             Active
           </button>
@@ -50,14 +45,14 @@ const TodoFooter = () => {
             className={clsx(s.footerFilterBtn, {
               [s.active]: filter === 'completed',
             })}
-            onClick={() => setFilter('completed')}
+            onClick={() => handleSetFilter('completed')}
           >
             Completed
           </button>
         </div>
       </div>
       {items.some(todo => todo.completed) && (
-        <button className={s.footerClear} onClick={clearCompleted}>
+        <button className={s.footerClear} onClick={handleClearCompleted}>
           Clear completed
         </button>
       )}

@@ -1,10 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import {
-  ADD_TODO,
-  SET_INPUT_TEXT,
-  TOGGLE_ALL_TODOS,
-} from '@store/todo-actions';
+import { setInputText, addTodo, toggleAllTodos } from '@models/todoSlice';
 import s from './InputField.module.scss';
 
 const InputField = () => {
@@ -13,40 +9,34 @@ const InputField = () => {
   const dispatch = useDispatch();
 
   const handleInputChange = e => {
-    dispatch({
-      type: SET_INPUT_TEXT,
-      payload: e.target.value,
-    });
+    dispatch(setInputText(e.target.value));
   };
 
-  const addTodo = () => {
+  const handleAddTodo = () => {
     if (inputText.trim()) {
-      dispatch({
-        type: ADD_TODO,
-        payload: {
+      dispatch(
+        addTodo({
           id: new Date().toISOString(),
           text: inputText,
           completed: false,
           input: false,
-        },
-      });
+        }),
+      );
     }
   };
 
   const handleKeyDownEnter = e => {
     if (e.key === 'Enter') {
-      addTodo();
+      handleAddTodo();
     }
   };
 
   const handleInputBlur = () => {
-    addTodo();
+    handleAddTodo();
   };
 
-  const toggleAllTodos = () => {
-    dispatch({
-      type: TOGGLE_ALL_TODOS,
-    });
+  const handleToggleAllTodos = () => {
+    dispatch(toggleAllTodos());
   };
 
   const allCompleted = items.length && items.every(todo => todo.completed);
@@ -56,7 +46,7 @@ const InputField = () => {
       {items.length ? (
         <button
           className={clsx(s.allBtn, { [s.completed]: allCompleted })}
-          onClick={toggleAllTodos}
+          onClick={handleToggleAllTodos}
         >
           ❯
         </button>

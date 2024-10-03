@@ -1,62 +1,45 @@
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import {
-  EDIT_ITEM,
-  EDIT_ITEM_ESC,
-  HANDLE_DBL_CLICK,
-  REMOVE_TODO,
-  SAVE_EDIT_ITEM,
-  TOGGLE_TODO_COMPLETE,
-} from '@store/todo-actions';
+import todoSlice from '@models/todoSlice';
 import s from './TodoItem.module.scss';
 
 const TodoItem = ({ id, text, completed, input }) => {
   const dispatch = useDispatch();
+  const {
+    toggleComplete,
+    removeTodo,
+    editItem,
+    saveEditItem,
+    cancelEdit,
+    handleDblClick,
+  } = todoSlice.actions;
 
   const handleInput = (todoId, e) => {
-    dispatch({
-      type: EDIT_ITEM,
-      payload: { todoId, e: e.target.value },
-    });
+    dispatch(editItem({ todoId, value: e.target.value }));
   };
 
   const handleInputEnterOrBlur = todoId => {
     if (text.trim() === '') {
-      removeTodo(id);
+      dispatch(removeTodo({ todoId }));
     } else {
-      dispatch({
-        type: SAVE_EDIT_ITEM,
-        payload: { todoId },
-      });
+      dispatch(saveEditItem({ todoId }));
     }
   };
 
   const handleInputEsc = todoId => {
-    dispatch({
-      type: EDIT_ITEM_ESC,
-      payload: { todoId },
-    });
+    dispatch(cancelEdit({ todoId }));
   };
 
   const toggleTodoComplete = todoId => {
-    dispatch({
-      type: TOGGLE_TODO_COMPLETE,
-      payload: { todoId },
-    });
+    dispatch(toggleComplete({ todoId }));
   };
 
-  const removeTodo = todoId => {
-    dispatch({
-      type: REMOVE_TODO,
-      payload: { todoId },
-    });
+  const removeTodoItem = todoId => {
+    dispatch(removeTodo({ todoId }));
   };
 
-  const handleDblClick = todoId => {
-    dispatch({
-      type: HANDLE_DBL_CLICK,
-      payload: { todoId },
-    });
+  const handleDblClickItem = todoId => {
+    dispatch(handleDblClick({ todoId }));
   };
 
   return (
@@ -85,11 +68,11 @@ const TodoItem = ({ id, text, completed, input }) => {
           autoFocus
         />
       ) : (
-        <div className={s.text} onDoubleClick={() => handleDblClick(id)}>
+        <div className={s.text} onDoubleClick={() => handleDblClickItem(id)}>
           {text}
         </div>
       )}
-      <span className={s.delete} onClick={() => removeTodo(id)}>
+      <span className={s.delete} onClick={() => removeTodoItem(id)}>
         ✖
       </span>
     </li>
