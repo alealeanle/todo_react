@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import InputField from '@TodoPage/InputField/InputField';
-import TodoList from '@TodoPage/TodoList/TodoList';
-import TodoFooter from '@TodoPage/TodoFooter/TodoFooter';
+import InputField from '@TodoPage/InputField';
+import TodoList from '@TodoPage/TodoList';
+import TodoFooter from '@TodoPage/TodoFooter';
 import s from './TodoPage.module.scss';
 
 const TodoPage = () => {
