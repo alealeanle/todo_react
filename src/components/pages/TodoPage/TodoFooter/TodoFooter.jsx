@@ -56,12 +56,10 @@ const TodoFooter = () => {
           </button>
         </div>
       </div>
-      {items.some(todo => todo.completed) ? (
+      {items.some(todo => todo.completed) && (
         <button className={s.footerClear} onClick={clearCompleted}>
           Clear completed
         </button>
-      ) : (
-        ''
       )}
     </div>
   );
