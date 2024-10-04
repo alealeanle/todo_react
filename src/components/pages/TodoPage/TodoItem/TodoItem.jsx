@@ -1,82 +1,86 @@
+import { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import todoSlice from '@models/todoSlice';
 import s from './TodoItem.module.scss';
 
 const TodoItem = ({ id, text, completed, input }) => {
+  const [inputText, setInputText] = useState(text.trim());
   const dispatch = useDispatch();
   const {
     toggleComplete,
     removeTodo,
-    editItem,
     saveEditItem,
     cancelEdit,
     handleDblClick,
   } = todoSlice.actions;
 
-  const handleInput = (todoId, e) => {
-    dispatch(editItem({ todoId, value: e.target.value }));
+  const handleInput = e => {
+    setInputText(e.target.value);
   };
 
-  const handleInputEnterOrBlur = todoId => {
-    if (text.trim() === '') {
-      dispatch(removeTodo({ todoId }));
+  const handleInputEnterOrBlur = () => {
+    if (inputText.trim() === '') {
+      dispatch(removeTodo({ id }));
     } else {
-      dispatch(saveEditItem({ todoId }));
+      dispatch(saveEditItem({ id, itemText: inputText }));
     }
   };
 
-  const handleInputEsc = todoId => {
-    dispatch(cancelEdit({ todoId }));
+  const handleInputEsc = () => {
+    setInputText(text);
+    dispatch(cancelEdit({ id }));
   };
 
-  const toggleTodoComplete = todoId => {
-    dispatch(toggleComplete({ todoId }));
+  const toggleTodoComplete = () => {
+    dispatch(toggleComplete({ id }));
   };
 
-  const removeTodoItem = todoId => {
-    dispatch(removeTodo({ todoId }));
+  const removeTodoItem = () => {
+    dispatch(removeTodo({ id }));
   };
 
-  const handleDblClickItem = todoId => {
-    dispatch(handleDblClick({ todoId }));
+  const handleDblClickItem = () => {
+    dispatch(handleDblClick({ id }));
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleInputEnterOrBlur();
+    } else if (e.key === 'Escape') {
+      handleInputEsc();
+    }
   };
 
   return (
-    <li key={id} className={clsx(s.item, { [s._completed]: completed })}>
+    <li className={clsx(s.item, { [s._completed]: completed })}>
       <input
         className={s.checkbox}
         type="checkbox"
         checked={completed}
-        onChange={() => toggleTodoComplete(id)}
+        onChange={() => toggleTodoComplete()}
       />
       <label className={s.icon}></label>
       {input ? (
         <input
           className={s.inputText}
           type="text"
-          value={text}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              handleInputEnterOrBlur(id);
-            } else if (e.key === 'Escape') {
-              handleInputEsc(id);
-            }
-          }}
-          onBlur={() => handleInputEnterOrBlur(id)}
-          onChange={e => handleInput(id, e)}
+          value={inputText}
+          onKeyDown={handleKeyDown}
+          onBlur={handleInputEnterOrBlur}
+          onChange={handleInput}
           autoFocus
         />
       ) : (
-        <div className={s.text} onDoubleClick={() => handleDblClickItem(id)}>
+        <div className={s.text} onDoubleClick={handleDblClickItem}>
           {text}
         </div>
       )}
-      <span className={s.delete} onClick={() => removeTodoItem(id)}>
+      <span className={s.delete} onClick={removeTodoItem}>
         ✖
       </span>
     </li>
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);

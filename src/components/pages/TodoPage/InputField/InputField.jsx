@@ -1,38 +1,40 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { setInputText, addTodo, toggleAllTodos } from '@models/todoSlice';
+import { addTodo, toggleAllTodos } from '@models/todoSlice';
 import s from './InputField.module.scss';
 
 const InputField = () => {
+  const [inputText, setInputText] = useState('');
   const items = useSelector(state => state.todos.todos);
-  const inputText = useSelector(state => state.todos.inputText);
   const dispatch = useDispatch();
 
   const handleInputChange = e => {
-    dispatch(setInputText(e.target.value));
+    setInputText(e.target.value);
   };
 
-  const handleAddTodo = () => {
-    if (inputText.trim()) {
+  const handleAddTodo = value => {
+    if (value.trim()) {
       dispatch(
         addTodo({
           id: new Date().toISOString(),
-          text: inputText,
+          text: value.trim(),
           completed: false,
           input: false,
         }),
       );
     }
+    setInputText('');
   };
 
   const handleKeyDownEnter = e => {
     if (e.key === 'Enter') {
-      handleAddTodo();
+      handleAddTodo(e.currentTarget.value);
     }
   };
 
-  const handleInputBlur = () => {
-    handleAddTodo();
+  const handleInputBlur = e => {
+    handleAddTodo(e.currentTarget.value);
   };
 
   const handleToggleAllTodos = () => {

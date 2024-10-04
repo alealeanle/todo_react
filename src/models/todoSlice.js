@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   todos: [],
-  inputText: '',
   filter: 'all',
 };
 
@@ -12,41 +11,32 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       state.todos.push(action.payload);
-      state.inputText = '';
     },
     toggleComplete: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.todoId);
+      const todo = state.todos.find(todo => todo.id === action.payload.id);
       if (todo) todo.completed = !todo.completed;
     },
     removeTodo: (state, action) => {
-      state.todos = state.todos.filter(
-        todo => todo.id !== action.payload.todoId,
-      );
-    },
-    editItem: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.todoId);
-      if (todo) todo.text = action.payload.value;
+      state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
     },
     saveEditItem: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.todoId);
-      if (todo) todo.input = false;
+      const todo = state.todos.find(todo => todo.id === action.payload.id);
+      if (todo) {
+        todo.text = action.payload.itemText;
+        todo.input = false;
+      }
     },
     cancelEdit: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.todoId);
+      const todo = state.todos.find(todo => todo.id === action.payload.id);
       if (todo) {
         todo.input = false;
-        todo.text = todo.backupText;
       }
     },
     handleDblClick: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.todoId);
+      const todo = state.todos.find(todo => todo.id === action.payload.id);
       if (todo) {
         todo.input = true;
-        todo.backupText = todo.text;
       }
-    },
-    setInputText: (state, action) => {
-      state.inputText = action.payload;
     },
     toggleAllTodos: state => {
       const allCompleted = state.todos.every(todo => todo.completed);
