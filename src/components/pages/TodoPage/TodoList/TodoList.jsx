@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import TodoItem from '@pages/TodoPage/TodoItem';
 import s from './TodoList.module.scss';
 
@@ -34,6 +35,17 @@ export const TodoList = () => {
         .reverse()}
     </ul>
   );
+};
+
+TodoList.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      input: PropTypes.bool.isRequired,
+    }),
+  ),
 };
 
 export default TodoList;

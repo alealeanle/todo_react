@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 import todoSlice from '@models/todoSlice';
 import s from './TodoItem.module.scss';
 
@@ -81,6 +82,13 @@ const TodoItem = ({ id, text, completed, input }) => {
       </span>
     </li>
   );
+};
+
+TodoItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  input: PropTypes.bool.isRequired,
 };
 
 export default memo(TodoItem);
